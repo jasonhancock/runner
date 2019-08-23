@@ -1,6 +1,10 @@
-package runner
+package runner_test
 
-import "log"
+import (
+	"log"
+
+	"github.com/jasonhancock/runner"
+)
 
 type myServer struct{}
 
@@ -16,7 +20,7 @@ func (s *myServer) Stop() error {
 
 func Example() {
 	// create a context that will be cancelled when an os signal tells the process to shut down.
-	ctx := Context()
+	ctx := runner.Context()
 
 	// Fire up some background job that will shutdown when ctx is cancelled.
 	go func() {
@@ -25,5 +29,5 @@ func Example() {
 	}()
 
 	// start up a server. This call will block.
-	RunServer(&myServer{})
+	runner.RunServer(&myServer{})
 }
